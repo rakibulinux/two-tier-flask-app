@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flask-app
+  labels:
+    app: flask-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: flask-app
+  template:
+    metadata:
+      labels:
+        app: flask-app
+    spec:
+      containers:
+        - name: flask-app
+          image: trainwithshubham/flaskapp:latest
+   #       resources:
+#            limits:
+ #             memory: "128Mi"
+  #            cpu: "500m"
+          ports:
+            - containerPort: 5000
+          env:
+            - name: MYSQL_HOST
+              value: "10.98.118.227"
+            - name: MYSQL_DB
+              value: "mydb"
+            - name: MYSQL_PASSWORD
+              value: "admin"
+            - name: MYSQL_USER
+              value: "admin"
+          imagePullPolicy: Always
